@@ -12,7 +12,7 @@ module Cli
       end
 
       def before(logger: nil, args: nil)
-        logger.info "Removing Installed Pivotal Prefs"
+        logger.info "Removing ide-prefs-for-jetbrains"
       end
     end
   end
