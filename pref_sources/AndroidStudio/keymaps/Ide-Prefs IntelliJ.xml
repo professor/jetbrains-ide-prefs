@@ -1,0 +1,5 @@
+<keymap version="1" name="Ide-Prefs IntelliJ" parent="IdePrefs Common">
+  <action id="org.jetbrains.plugins.ruby.tasks.rake.actions.RakeTasksPopupAction">
+    <keyboard-shortcut first-keystroke="alt r" />
+  </action>
+</keymap>
