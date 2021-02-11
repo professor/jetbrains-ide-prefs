@@ -28,8 +28,11 @@ Then, run the following commands:
 git clone https://github.com/professor/jetbrains-ide-prefs
 cd jetbrains-ide-prefs
 cli/bin/ide_prefs install --ide=intellij
-# ide flag can be any of [rubymine,intellij,intellijcommunity,webstorm,androidstudio,appcode,clion,goland,pycharm]
+# ide flag can be any *one* of [rubymine,intellij,intellijcommunity,webstorm,androidstudio,appcode,clion,goland,pycharm]
 ```
+
+_NOTE:_ If you have multiple JetBrains IDE's installed, you will need to repeat calling the CLI for each IDE.
+
 
 This will install the preferences into your IDE of choice; it will default to installing preferences into the latest version of the IDE installed on your machine; if no IDE is installed on your machine, then it will install into the "default" version configured in jetbrains-ide-prefs. If you want to find the default version for your IDE, look in `cli/lib/cli/ide/<IDE>_user_pref_dir.rb`.
 
