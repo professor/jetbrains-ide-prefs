@@ -1,0 +1,50 @@
+#!/usr/bin/env ruby
+
+unless RUBY_VERSION.to_i >= 2
+  puts "You must use ruby 2.0.0 or greater. OS X Mavericks and beyond ship with Ruby 2+ as the system ruby."
+  exit 1
+end
+
+bin_dir = File.dirname(__FILE__)
+root_dir = File.join(bin_dir, '..', '..')
+
+$LOAD_PATH.unshift "#{root_dir}/ide_prefs/lib"
+$LOAD_PATH.unshift "#{root_dir}/persistence/lib"
+$LOAD_PATH.unshift "#{root_dir}/logging/lib"
+$LOAD_PATH.unshift "#{root_dir}/cli/lib"
+
+require "optparse"
+require "ide_prefs"
+require "persistence"
+require "cli"
+
+installed_ides = Cli::Ide::Finder.new.installed_ide_klasses
+
+if installed_ides.empty?
+  puts "No JetBrains IDEs found installed. Please install at least one and re-run."
+  exit 1
+end
+
+repo_config_options = {}
+logging_options = { log_level: :info }
+
+installed_ides.each do |ide_pref_dir_class|
+  prefs_dir = ide_pref_dir_class.new
+  repo_config_options[:user_prefs_repo_location] = prefs_dir.path
+  repo_config_options[:ide_name] = ide
+
+  Cli::Logger.new(log_level: logging_options[:log_level]).start
+
+  repo_configuration = Cli::Configuration::RepoConfiguration.new(repo_config_options)
+
+  puts "Installing preferences for #{prefs_dir.ide_pref_dir_name_without_version}"
+  puts " - Preferences will install to #{repo_configuration.user_prefs_repo_location}"
+  puts " - Backups will be placed in #{repo_configuration.backup_prefs_repo_location}"
+
+  repos = {
+    user_prefs_repo: Persistence::Repos::UserPrefsRepo.new(location: repo_configuration.user_prefs_repo_location),
+    backup_prefs_repo: Persistence::Repos::BackupPrefsRepo.new(location: repo_configuration.backup_prefs_repo_location),
+    pivotal_prefs_repo: Persistence::Repos::PivotalPrefsRepo.new(location: repo_configuration.pivotal_prefs_repo_location),
+  }
+  Cli::CommandFactory.new("install").command.new(repos).execute
+end

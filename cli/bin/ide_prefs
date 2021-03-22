@@ -29,7 +29,7 @@ OptionParser.new do |opts|
       ["webstorm", "intellij", "intellijcommunity", "rubymine", "appcode", "androidstudio", "clion", "pycharm", "goland"],
       "webstorm, intellij, intellijcommunity, rubymine, appcode, androidstudio", "clion", "pycharm", "goland"
   ) do |ide|
-    repo_config_options[:user_prefs_repo_location] = Module.const_get("Cli::Ide::#{ide.capitalize}UserPrefDir").new.path
+    repo_config_options[:user_prefs_repo_location] = Module.const_get("Cli::Ide::#{ide.capitalize}").new.path
     repo_config_options[:ide_name] = ide
   end
 
