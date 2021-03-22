@@ -28,10 +28,9 @@ end
 repo_config_options = {}
 logging_options = { log_level: :info }
 
-installed_ides.each do |ide_pref_dir_class|
-  prefs_dir = ide_pref_dir_class.new
+installed_ides.each do |ide_klass|
+  prefs_dir = ide_klass.new
   repo_config_options[:user_prefs_repo_location] = prefs_dir.path
-  repo_config_options[:ide_name] = ide
 
   Cli::Logger.new(log_level: logging_options[:log_level]).start
 
