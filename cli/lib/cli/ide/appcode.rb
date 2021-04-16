@@ -1,8 +1,12 @@
-require 'cli/ide/jet_brains_ide_user_pref_dir'
+require 'cli/ide/jet_brains_ide'
 
 module Cli
   module Ide
-    class AppcodeUserPrefDir < JetBrainsIdeUserPrefDir
+    class Appcode < JetBrainsIde
+      def self.bundle_name
+        "AppCode.app"
+      end
+
       def ide_pref_dir_name_without_version
         'AppCode'
       end

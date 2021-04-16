@@ -1,10 +1,14 @@
-require "cli/ide/jet_brains_ide_user_pref_dir"
+require "cli/ide/preferences_directory"
 
 module Cli
   module Ide
-    class IntellijcommunityUserPrefDir < JetBrainsIdeUserPrefDir
+    class Rubymine < JetBrainsIde
+      def self.bundle_name
+        "RubyMine.app"
+      end
+
       def ide_pref_dir_name_without_version
-        "IdeaIC"
+        "RubyMine"
       end
 
       def default_ide_pref_dir_version
