@@ -18,9 +18,21 @@ Once upon a time, RubyMine shipped with keybindings that made no sense to anyone
 
 Today, this project is not only a repository of preferences for Jetbrains IDEs – it's also a recommended workflow for tracking your team's customizations to IDE preferences. 
 
-## Installation ##
+## Installation for all Jetbrains IDEs ##
 
 First, *close your Jetbrains IDE*. 
+
+Then, run the following commands:
+
+```sh
+git clone https://github.com/professor/jetbrains-ide-prefs
+cd jetbrains-ide-prefs
+cli/bin/install_all
+```
+
+
+## Installation for just one IDE ## 
+First, *close all or your Jetbrains IDE*.
 
 Then, run the following commands:
 
