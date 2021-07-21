@@ -27,16 +27,17 @@ end
 
 repo_config_options = {}
 logging_options = { log_level: :info }
+Cli::Logger.new(log_level: logging_options[:log_level]).start
 
 installed_ides.each do |ide_klass|
   prefs_dir = ide_klass.new
+  ide = prefs_dir.ide_pref_dir_name_without_version
   repo_config_options[:user_prefs_repo_location] = prefs_dir.path
-
-  Cli::Logger.new(log_level: logging_options[:log_level]).start
+  repo_config_options[:ide_name] = ide
 
   repo_configuration = Cli::Configuration::RepoConfiguration.new(repo_config_options)
 
-  puts "Installing preferences for #{prefs_dir.ide_pref_dir_name_without_version}"
+  puts "Installing preferences for #{ide}"
   puts " - Preferences will install to #{repo_configuration.user_prefs_repo_location}"
   puts " - Backups will be placed in #{repo_configuration.backup_prefs_repo_location}"
 
