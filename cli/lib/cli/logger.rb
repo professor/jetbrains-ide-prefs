@@ -21,7 +21,7 @@ class Cli::Logger
   def logger
     @logger ||= begin
       logger = Logger.new(STDOUT)
-      logger.progname = "pivotal_ide_prefs"
+      logger.progname = "jetbrains-ide-prefs"
       logger.level = Module.const_get("Logger::Severity::#{@log_level.upcase}")
       logger.formatter = proc do |severity, datetime, progname, msg|
         "#{progname} #{datetime}: #{severity} - #{msg}\n"
