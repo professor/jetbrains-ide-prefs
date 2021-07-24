@@ -53,7 +53,7 @@ end
 
 Cli::Logger.new(log_level: logging_options[:log_level]).start
 
-repo_configuration = Cli::Configuration::RepoConfiguration.new(repo_config_options)
+repo_configuration = Cli::Configuration::RepoConfiguration.new(**repo_config_options)
 
 puts "This will install preferences at #{repo_configuration.user_prefs_repo_location}"
 puts "And store backups at #{repo_configuration.backup_prefs_repo_location}"
@@ -64,4 +64,4 @@ repos = {
   pivotal_prefs_repo: Persistence::Repos::PivotalPrefsRepo.new(location: repo_configuration.pivotal_prefs_repo_location),
 }
 
-Cli::CommandFactory.new(ARGV.last).command.new(repos).execute
+Cli::CommandFactory.new(ARGV.last).command.new(**repos).execute
